@@ -9,7 +9,7 @@ services:
     expose:
       - "3000"
     networks:
-      - nginx
+      - proxy
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:3000/ || exit 1"]
       interval: 30s
@@ -20,4 +20,4 @@ services:
 networks:
   nginx:
     external: true
-    name: nginx
+    name: proxy
