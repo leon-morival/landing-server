@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CopyAddressButton from "../components/CopyAddressButton";
 import MinecraftStatus from "../components/MinecraftStatus";
-import { minecraftServer, siteConfig } from "../lib/server-config";
+import { minecraftServer } from "../lib/server-config";
 
 const joinSteps = [
   {
@@ -29,11 +29,11 @@ const joinSteps = [
 
 export default function MinecraftPage() {
   return (
-    <main className="minecraft-page">
+    <main className="minecraft-page notranslate" translate="no">
       <nav className="minecraft-nav" aria-label="Navigation Minecraft">
         <Link href="/" className="minecraft-brand">
-          <SwordIcon />
-          <span>{siteConfig.name}</span>
+          <HomeIcon />
+          <span>Accueil</span>
         </Link>
         <div className="minecraft-nav-links">
           <Link href="/">Accueil</Link>
@@ -133,12 +133,12 @@ export default function MinecraftPage() {
   );
 }
 
-function SwordIcon() {
+function HomeIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M14.6 4h5.4v5.4L9 20.4 3.6 15z" />
-      <path d="M5.8 12.8 11.2 18" />
-      <path d="M4 20 8 16" />
+      <path d="m3 11 9-7 9 7" />
+      <path d="M5 10v10h14V10" />
+      <path d="M10 20v-6h4v6" />
     </svg>
   );
 }

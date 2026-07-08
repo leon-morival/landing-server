@@ -1,9 +1,10 @@
 import Link from "next/link";
 import HomeElement, {
+  AstroneerIcon,
   JellyfinIcon,
   MinecraftIcon,
 } from "./components/HomeElement";
-import { siteConfig } from "./lib/server-config";
+import { astroneerServer, siteConfig } from "./lib/server-config";
 
 export default function Home() {
   return (
@@ -41,6 +42,16 @@ export default function Home() {
             variant="minecraft"
           >
             <MinecraftIcon />
+          </HomeElement>
+
+          <HomeElement
+            title={astroneerServer.name}
+            description="Infos et adresse du serveur dédié."
+            href={siteConfig.astroneerPath}
+            actionLabel="Voir le serveur"
+            variant="astroneer"
+          >
+            <AstroneerIcon />
           </HomeElement>
         </div>
 

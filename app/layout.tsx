@@ -32,6 +32,19 @@ const vt323 = VT323({
 export const metadata: Metadata = {
   title: "Le serveur de Leon",
   description: "Streaming, Minecraft et services privés de Leon.",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      "max-image-preview": "none",
+      "max-snippet": 0,
+      "max-video-preview": 0,
+    },
+  },
 };
 
 export default function RootLayout({

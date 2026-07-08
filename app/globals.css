@@ -178,9 +178,9 @@ svg {
 
 .service-grid {
   display: grid;
-  width: min(860px, 100%);
+  width: min(1120px, 100%);
   margin-top: 48px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px;
 }
 
@@ -246,6 +246,14 @@ svg {
   border-color: var(--green);
   box-shadow: var(--shadow-hard), 0 0 28px rgb(51 232 121 / 28%), inset 0 0 0 1px rgb(255 255 255 / 9%);
   color: #46ee89;
+}
+
+.service-card--astroneer {
+  --service-accent: #ffb347;
+
+  border-color: #ffb347;
+  box-shadow: var(--shadow-hard), 0 0 28px rgb(255 179 71 / 30%), inset 0 0 0 1px rgb(255 255 255 / 9%);
+  color: #ffd66b;
 }
 
 .service-status {
@@ -315,6 +323,7 @@ svg {
   min-height: 56px;
   width: 100%;
   margin-top: 24px;
+  padding: 0 14px;
   align-items: center;
   justify-content: center;
   gap: 12px;
@@ -323,6 +332,13 @@ svg {
   background: var(--service-accent);
   color: #06111a;
   font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.service-action-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .service-card--jellyfin .service-action {
@@ -334,6 +350,11 @@ svg {
 .service-card--minecraft .service-action {
   background: linear-gradient(180deg, #35f48a, #13ca69);
   color: #041411;
+}
+
+.service-card--astroneer .service-action {
+  background: linear-gradient(180deg, #ffd66b, #ff9f43);
+  color: #1a1025;
 }
 
 .service-action svg {
@@ -383,6 +404,18 @@ svg {
   line-height: 1.35;
 }
 
+.astroneer-page {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 72% 18%, rgb(109 244 255 / 22%), transparent 24%),
+    linear-gradient(180deg, #11102a 0%, #151a30 46%, #24170f 100%);
+  color: var(--paper);
+  font-family: var(--font-retro), var(--font-geist-mono), monospace;
+  font-size: 1.35rem;
+  line-height: 1.35;
+}
+
 .minecraft-nav {
   position: sticky;
   top: 0;
@@ -413,9 +446,11 @@ svg {
 .minecraft-nav-links svg {
   width: 26px;
   height: 26px;
-  fill: var(--diamond, #5ad4e6);
-  stroke: #0a0c12;
-  stroke-width: 1.1;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
 }
 
 .minecraft-nav-links {
@@ -462,6 +497,110 @@ svg {
   z-index: 0;
   object-fit: cover;
   filter: saturate(1.05) contrast(1.04);
+}
+
+.astroneer-hero {
+  position: relative;
+  display: grid;
+  min-height: 680px;
+  margin-top: -72px;
+  padding: 148px 24px 86px;
+  place-items: center;
+  overflow: hidden;
+}
+
+.astroneer-hero::before {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle, rgb(255 255 255 / 80%) 1px, transparent 1.5px) 0 0 / 96px 96px,
+    radial-gradient(circle, rgb(109 244 255 / 65%) 1px, transparent 1.5px) 44px 18px / 148px 148px;
+  content: "";
+  opacity: 0.55;
+}
+
+.astroneer-hero::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 230px;
+  background: linear-gradient(180deg, transparent, rgb(17 16 42 / 80%) 58%, #151a30 100%);
+  content: "";
+}
+
+.astroneer-orbit {
+  position: absolute;
+  top: 64%;
+  left: 50%;
+  z-index: 1;
+  width: min(760px, 84vw);
+  aspect-ratio: 1;
+  border: 3px solid rgb(255 213 74 / 36%);
+  border-radius: 50%;
+  opacity: 0.72;
+  transform: translate(-50%, -50%) rotate(-16deg);
+}
+
+.astroneer-planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(320px, 48vw);
+  aspect-ratio: 1;
+  border: 6px solid #030303;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 28%, #6df4ff 0 7%, transparent 8%),
+    radial-gradient(circle at 67% 62%, #ffb347 0 10%, transparent 11%),
+    linear-gradient(135deg, #27315f 0 42%, #ff7a3d 42% 58%, #172341 58% 100%);
+  box-shadow: 14px 14px 0 rgb(0 0 0 / 42%), 0 0 60px rgb(109 244 255 / 24%);
+  transform: translate(-50%, -50%);
+}
+
+.astroneer-moon {
+  position: absolute;
+  top: 9%;
+  right: 18%;
+  width: 62px;
+  aspect-ratio: 1;
+  border: 5px solid #030303;
+  border-radius: 50%;
+  background: #ffd66b;
+  box-shadow: 8px 8px 0 rgb(0 0 0 / 36%);
+}
+
+.astroneer-rover {
+  position: absolute;
+  bottom: 14%;
+  left: 18%;
+  width: 86px;
+  height: 28px;
+  border: 5px solid #030303;
+  background: #6df4ff;
+  box-shadow: 8px 8px 0 rgb(0 0 0 / 36%);
+}
+
+.astroneer-rover::before,
+.astroneer-rover::after {
+  position: absolute;
+  bottom: -18px;
+  width: 24px;
+  height: 24px;
+  border: 4px solid #030303;
+  border-radius: 50%;
+  background: #ff9f43;
+  content: "";
+}
+
+.astroneer-rover::before {
+  left: 8px;
+}
+
+.astroneer-rover::after {
+  right: 8px;
+}
+
+.astroneer-hero-content {
+  text-shadow: 4px 4px 0 #030303;
 }
 
 .minecraft-hero-content {
@@ -552,6 +691,7 @@ svg {
   font-family: var(--font-pixel), var(--font-geist-mono), monospace;
   font-size: 0.82rem;
   line-height: 1.25;
+  text-decoration: none;
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
@@ -566,7 +706,8 @@ svg {
     8px 8px 0 rgb(0 0 0 / 56%);
 }
 
-.copy-address-button {
+.copy-address-button,
+.map-button {
   padding: 0 24px;
   background: var(--gold);
   color: #16120a;
@@ -577,7 +718,6 @@ svg {
   background: var(--green);
 }
 
-.map-button,
 .large-map-link {
   padding: 0 24px;
   background: #12c8c7;
@@ -669,6 +809,10 @@ h2.pixel-heading {
   font-family: var(--font-pixel), var(--font-geist-mono), monospace;
   font-size: 0.88rem;
   overflow-wrap: anywhere;
+}
+
+.astroneer-info-panel .status-value {
+  font-size: 0.78rem;
 }
 
 .status-value--online {
@@ -852,6 +996,15 @@ h2.pixel-heading {
     padding-top: 214px;
   }
 
+  .astroneer-hero {
+    margin-top: -118px;
+    padding-top: 214px;
+  }
+
+  .service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .status-panel,
   .steps-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -916,6 +1069,10 @@ h2.pixel-heading {
     font-size: 1.2rem;
   }
 
+  .astroneer-page {
+    font-size: 1.2rem;
+  }
+
   .minecraft-nav-links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -925,6 +1082,12 @@ h2.pixel-heading {
   }
 
   .minecraft-hero {
+    min-height: 720px;
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .astroneer-hero {
     min-height: 720px;
     padding-right: 16px;
     padding-left: 16px;
@@ -941,6 +1104,14 @@ h2.pixel-heading {
   .server-address {
     padding: 16px;
     font-size: 0.88rem;
+  }
+
+  .astroneer-orbit {
+    width: 540px;
+  }
+
+  .astroneer-planet {
+    width: 230px;
   }
 
   .minecraft-actions,

@@ -4,6 +4,7 @@ export const siteConfig = {
   description: "Streaming, jeux et services privés au même endroit.",
   jellyfinUrl: "https://momostreaming.com",
   minecraftPath: "/minecraft",
+  astroneerPath: "/astroneer",
 };
 
 export const minecraftServer = {
@@ -12,4 +13,10 @@ export const minecraftServer = {
   mapUrl: "https://map.leonmorival.xyz",
   versionHint: "Java",
   access: "Whitelist sur demande",
+};
+
+export const astroneerServer = {
+  name: "Astroneer",
+  address: "astroneer.leonmorival.xyz",
+  access: "Serveur dédié",
 };

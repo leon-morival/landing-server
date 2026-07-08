@@ -99,7 +99,7 @@ type StatusItemProps = {
 
 function StatusItem({ label, value, tone }: StatusItemProps) {
   return (
-    <div className="status-item">
+    <div className="status-item notranslate" translate="no">
       <span className="status-label">{label}</span>
       <strong className={tone ? `status-value status-value--${tone}` : "status-value"}>
         {tone ? <span className="status-light" aria-hidden="true" /> : null}
