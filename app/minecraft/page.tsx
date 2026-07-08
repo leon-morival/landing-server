@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CopyAddressButton from "../components/CopyAddressButton";
 import MinecraftStatus from "../components/MinecraftStatus";
+import MinecraftWhitelistForm from "../components/MinecraftWhitelistForm";
 import { minecraftServer } from "../lib/server-config";
 
 const joinSteps = [
@@ -38,6 +39,7 @@ export default function MinecraftPage() {
         <div className="minecraft-nav-links">
           <Link href="/">Accueil</Link>
           <a href="#statut">Statut</a>
+          <a href="#acces">Accès</a>
           <a href="#rejoindre">Rejoindre</a>
           <a href={minecraftServer.mapUrl} target="_blank" rel="noopener noreferrer">
             Carte
@@ -80,6 +82,15 @@ export default function MinecraftPage() {
 
       <div className="minecraft-content">
         <MinecraftStatus />
+
+        <section id="acces" className="minecraft-section whitelist-section">
+          <div className="section-heading pixel-heading">
+            <h2>Demande d&apos;accès</h2>
+            <p>La candidature est envoyée sur Discord pour validation.</p>
+          </div>
+
+          <MinecraftWhitelistForm />
+        </section>
 
         <section id="rejoindre" className="minecraft-section">
           <div className="section-heading pixel-heading">

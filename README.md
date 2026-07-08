@@ -1,5 +1,35 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Minecraft whitelist
+
+La page Minecraft contient un formulaire de candidature. Une demande valide est envoyée vers Discord avec deux boutons-lien signés :
+
+- `Accepter` appelle `/api/minecraft/whitelist/review` et exécute `whitelist add <pseudo>` via RCON.
+- `Refuser` marque la demande comme refusée et notifie Discord.
+
+Un vrai bot Discord peut aussi appeler `POST /api/minecraft/whitelist/decision` avec `Authorization: Bearer <MINECRAFT_WHITELIST_ADMIN_TOKEN>` et un JSON :
+
+```json
+{
+  "username": "Leon",
+  "decision": "accept"
+}
+```
+
+Variables nécessaires :
+
+```bash
+APP_BASE_URL="https://leonmorival.xyz"
+DISCORD_WHITELIST_WEBHOOK_URL="https://discord.com/api/webhooks/..."
+MINECRAFT_WHITELIST_REVIEW_SECRET="une-valeur-aleatoire-longue"
+MINECRAFT_WHITELIST_ADMIN_TOKEN="une-autre-valeur-aleatoire-longue"
+MINECRAFT_RCON_HOST="127.0.0.1"
+MINECRAFT_RCON_PORT="25575"
+MINECRAFT_RCON_PASSWORD="mot-de-passe-rcon"
+```
+
+Active RCON côté serveur Minecraft, idéalement sans exposer publiquement le port `25575`.
+
 ## Getting Started
 
 First, run the development server:

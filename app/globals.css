@@ -836,6 +836,112 @@ h2.pixel-heading {
   text-align: center;
 }
 
+.whitelist-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding: 26px;
+}
+
+.form-field {
+  display: grid;
+  gap: 10px;
+}
+
+.form-field--full {
+  grid-column: 1 / -1;
+}
+
+.form-field label {
+  color: var(--gold);
+  font-family: var(--font-pixel), var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  border: 4px solid #030303;
+  background: rgb(8 10 15 / 90%);
+  box-shadow:
+    inset -3px -3px 0 rgb(0 0 0 / 32%),
+    inset 3px 3px 0 rgb(255 255 255 / 8%);
+  color: var(--paper);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1rem;
+}
+
+.form-field input {
+  min-height: 56px;
+  padding: 0 16px;
+}
+
+.form-field textarea {
+  min-height: 148px;
+  padding: 16px;
+  resize: vertical;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: rgb(242 239 227 / 48%);
+}
+
+.whitelist-submit {
+  display: inline-flex;
+  min-height: 58px;
+  padding: 0 24px;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #030303;
+  background: var(--green);
+  box-shadow:
+    inset -3px -3px 0 rgb(0 0 0 / 32%),
+    inset 3px 3px 0 rgb(255 255 255 / 22%),
+    5px 5px 0 rgb(0 0 0 / 48%);
+  color: #041411;
+  cursor: pointer;
+  font-family: var(--font-pixel), var(--font-geist-mono), monospace;
+  font-size: 0.78rem;
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+
+.whitelist-submit:hover:not(:disabled) {
+  transform: translateY(-4px);
+  box-shadow:
+    inset -3px -3px 0 rgb(0 0 0 / 32%),
+    inset 3px 3px 0 rgb(255 255 255 / 22%),
+    8px 8px 0 rgb(0 0 0 / 56%);
+}
+
+.whitelist-submit:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.whitelist-message {
+  display: flex;
+  min-height: 58px;
+  margin: 0;
+  padding: 12px 16px;
+  align-items: center;
+  border: 4px solid #030303;
+  background: rgb(8 10 15 / 82%);
+  color: var(--paper);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.whitelist-message--success {
+  color: #7aff5f;
+}
+
+.whitelist-message--error {
+  color: #ffce86;
+}
+
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -981,7 +1087,7 @@ h2.pixel-heading {
 
   .minecraft-nav-links {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .minecraft-nav-links a {
@@ -1121,8 +1227,14 @@ h2.pixel-heading {
   }
 
   .status-panel,
-  .steps-grid {
+  .steps-grid,
+  .whitelist-form {
     grid-template-columns: 1fr;
+  }
+
+  .whitelist-submit,
+  .whitelist-message {
+    width: 100%;
   }
 
   .status-item,
