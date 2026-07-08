@@ -13,10 +13,11 @@ export default function MinecraftWhitelistForm() {
 
   async function submitRequest(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
     setSubmitting(true);
     setStatus(null);
 
-    const formData = new FormData(event.currentTarget);
+    const formData = new FormData(form);
     const payload = {
       username: String(formData.get("username") ?? ""),
       discord: String(formData.get("discord") ?? ""),
@@ -38,7 +39,7 @@ export default function MinecraftWhitelistForm() {
         throw new Error(result.message ?? "Demande refusée.");
       }
 
-      event.currentTarget.reset();
+      form.reset();
       setStatus({
         tone: "success",
         message: result.message ?? "Demande envoyée.",

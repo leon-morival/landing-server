@@ -86,7 +86,7 @@ export default function MinecraftPage() {
         <section id="acces" className="minecraft-section whitelist-section">
           <div className="section-heading pixel-heading">
             <h2>Demande d&apos;accès</h2>
-            <p>La candidature est envoyée sur Discord pour validation.</p>
+            <p>La candidature est transmise pour validation.</p>
           </div>
 
           <MinecraftWhitelistForm />

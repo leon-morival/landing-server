@@ -14,16 +14,17 @@ export async function POST(request: Request) {
 
     return Response.json({
       ok: true,
-      message: "Demande envoyée sur Discord.",
+      message: "Demande envoyée.",
     });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "Impossible d'envoyer la demande.";
-    const status = message.includes("configuré") ||
-      message.includes("APP_BASE_URL") ||
-      message.includes("Secret de revue")
-      ? 503
-      : 400;
+    const status =
+      message.includes("configuré") ||
+      message.includes("DISCORD_") ||
+      message.startsWith("Le service de notification a refusé")
+        ? 503
+        : 400;
 
     return Response.json(
       {

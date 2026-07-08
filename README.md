@@ -1,66 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Landing Server
+
+Site Next.js pour les services de `leonmorival.xyz`.
 
 ## Minecraft whitelist
 
-La page Minecraft contient un formulaire de candidature. Une demande valide est envoyée vers Discord avec deux boutons-lien signés :
+La page Minecraft contient un formulaire de candidature. Une demande valide envoie uniquement une notification dans le webhook configure avec :
 
-- `Accepter` appelle `/api/minecraft/whitelist/review` et exécute `whitelist add <pseudo>` via RCON.
-- `Refuser` marque la demande comme refusée et notifie Discord.
+- le pseudo Minecraft ;
+- l'identifiant Discord renseigne ;
+- le message du joueur.
 
-Un vrai bot Discord peut aussi appeler `POST /api/minecraft/whitelist/decision` avec `Authorization: Bearer <MINECRAFT_WHITELIST_ADMIN_TOKEN>` et un JSON :
+Le site ne modifie pas directement la whitelist Minecraft.
 
-```json
-{
-  "username": "Leon",
-  "decision": "accept"
-}
-```
-
-Variables nécessaires :
+Variable necessaire :
 
 ```bash
-APP_BASE_URL="https://leonmorival.xyz"
 DISCORD_WHITELIST_WEBHOOK_URL="https://discord.com/api/webhooks/..."
-MINECRAFT_WHITELIST_REVIEW_SECRET="une-valeur-aleatoire-longue"
-MINECRAFT_WHITELIST_ADMIN_TOKEN="une-autre-valeur-aleatoire-longue"
-MINECRAFT_RCON_HOST="127.0.0.1"
-MINECRAFT_RCON_PORT="25575"
-MINECRAFT_RCON_PASSWORD="mot-de-passe-rcon"
 ```
 
-Active RCON côté serveur Minecraft, idéalement sans exposer publiquement le port `25575`.
-
-## Getting Started
-
-First, run the development server:
+## Developpement
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvre ensuite http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production Docker
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Le plus simple sans CI/CD : le serveur clone le repo, puis Docker build et lance l'app.
 
-## Learn More
+```bash
+git pull --ff-only
+docker compose up -d --build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Le fichier `.env` du serveur doit contenir :
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+DISCORD_WHITELIST_WEBHOOK_URL="https://discord.com/api/webhooks/..."
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Le conteneur expose l'app uniquement sur `127.0.0.1:3000`, pour la mettre derriere nginx.
 
-## Deploy on Vercel
+## Auto-update simple
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Le script [scripts/update-from-git-docker.sh](scripts/update-from-git-docker.sh) verifie si `origin/main` a un nouveau commit. Si oui, il fait :
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+git pull --ff-only
+docker compose up -d --build --remove-orphans
+```
+
+Sur Ubuntu, tu peux l'appeler toutes les minutes avec un timer systemd :
+
+```ini
+# /etc/systemd/system/landing-server-update.service
+[Unit]
+Description=Update landing-server from Git
+
+[Service]
+Type=oneshot
+Environment=APP_DIR=/var/www/landing-server
+Environment=BRANCH=main
+ExecStart=/var/www/landing-server/scripts/update-from-git-docker.sh
+```
+
+```ini
+# /etc/systemd/system/landing-server-update.timer
+[Unit]
+Description=Check landing-server Git updates
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+Puis :
+
+```bash
+sudo chmod +x /var/www/landing-server/scripts/update-from-git-docker.sh
+sudo systemctl daemon-reload
+sudo systemctl enable --now landing-server-update.timer
+```
