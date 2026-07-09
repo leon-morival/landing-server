@@ -20,7 +20,6 @@ export default function MinecraftWhitelistForm() {
     const formData = new FormData(form);
     const payload = {
       username: String(formData.get("username") ?? ""),
-      discord: String(formData.get("discord") ?? ""),
       reason: String(formData.get("reason") ?? ""),
     };
 
@@ -59,7 +58,7 @@ export default function MinecraftWhitelistForm() {
 
   return (
     <form className="whitelist-form block-panel" onSubmit={submitRequest}>
-      <div className="form-field">
+      <div className="form-field form-field--full">
         <label htmlFor="minecraft-username">Pseudo Minecraft</label>
         <input
           id="minecraft-username"
@@ -70,19 +69,6 @@ export default function MinecraftWhitelistForm() {
           maxLength={16}
           pattern="[A-Za-z0-9_]{3,16}"
           placeholder="Leon"
-          required
-        />
-      </div>
-
-      <div className="form-field">
-        <label htmlFor="minecraft-discord">Discord</label>
-        <input
-          id="minecraft-discord"
-          name="discord"
-          type="text"
-          autoComplete="off"
-          maxLength={64}
-          placeholder="leon"
           required
         />
       </div>

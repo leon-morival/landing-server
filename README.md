@@ -7,7 +7,6 @@ Site Next.js pour les services de `leonmorival.xyz`.
 La page Minecraft contient un formulaire de candidature. Une demande valide envoie uniquement une notification dans le webhook configure avec :
 
 - le pseudo Minecraft ;
-- l'identifiant Discord renseigne ;
 - le message du joueur.
 
 Le site ne modifie pas directement la whitelist Minecraft.

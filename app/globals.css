@@ -608,6 +608,7 @@ svg {
   z-index: 2;
   display: flex;
   width: min(860px, 100%);
+  min-width: 0;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -645,6 +646,7 @@ svg {
 .server-address {
   display: inline-flex;
   max-width: 100%;
+  min-width: 0;
   padding: 18px 24px;
   align-items: center;
   justify-content: center;
@@ -667,6 +669,7 @@ svg {
 
 .minecraft-actions {
   display: flex;
+  max-width: 100%;
   margin-top: 22px;
   flex-wrap: wrap;
   justify-content: center;
@@ -680,6 +683,8 @@ svg {
 .back-home-link {
   display: inline-flex;
   min-height: 58px;
+  max-width: 100%;
+  min-width: 0;
   align-items: center;
   justify-content: center;
   gap: 12px;
@@ -691,8 +696,21 @@ svg {
   font-family: var(--font-pixel), var(--font-geist-mono), monospace;
   font-size: 0.82rem;
   line-height: 1.25;
+  text-align: center;
   text-decoration: none;
   transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.copy-address-button span,
+.map-button span,
+.large-map-link span,
+.back-home-link span,
+.minecraft-brand span,
+.minecraft-nav-links a,
+.service-copy,
+.service-action-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .copy-address-button:hover,
@@ -845,6 +863,7 @@ h2.pixel-heading {
 
 .form-field {
   display: grid;
+  min-width: 0;
   gap: 10px;
 }
 
@@ -923,6 +942,7 @@ h2.pixel-heading {
 .whitelist-message {
   display: flex;
   min-height: 58px;
+  min-width: 0;
   margin: 0;
   padding: 12px 16px;
   align-items: center;
@@ -932,6 +952,7 @@ h2.pixel-heading {
   font-family: var(--font-geist-mono), monospace;
   font-size: 1rem;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .whitelist-message--success {
@@ -1130,6 +1151,11 @@ h2.pixel-heading {
 }
 
 @media (max-width: 700px) {
+  .minecraft-page,
+  .astroneer-page {
+    --shadow-hard: 4px 4px 0 rgb(0 0 0 / 55%);
+  }
+
   .home-shell {
     width: min(100% - 24px, 520px);
     padding-top: 24px;
@@ -1172,11 +1198,21 @@ h2.pixel-heading {
   }
 
   .minecraft-page {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
   }
 
   .astroneer-page {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
+  }
+
+  .minecraft-nav {
+    width: min(100% - 20px, 520px);
+    gap: 0;
+  }
+
+  .minecraft-brand {
+    padding: 12px 14px;
+    font-size: 0.68rem;
   }
 
   .minecraft-nav-links {
@@ -1184,40 +1220,57 @@ h2.pixel-heading {
   }
 
   .minecraft-nav-links a {
-    font-size: 0.58rem;
+    min-height: 44px;
+    padding: 0 10px;
+    font-size: 0.52rem;
+    line-height: 1.25;
+    text-align: center;
   }
 
   .minecraft-hero {
     min-height: 720px;
-    padding-right: 16px;
-    padding-left: 16px;
+    padding-right: 14px;
+    padding-left: 14px;
   }
 
   .astroneer-hero {
     min-height: 720px;
-    padding-right: 16px;
-    padding-left: 16px;
+    padding-right: 14px;
+    padding-left: 14px;
   }
 
   .minecraft-hero-content h1 {
-    font-size: 2.45rem;
+    max-width: 100%;
+    font-size: 1.95rem;
+    line-height: 1.22;
+    overflow-wrap: anywhere;
   }
 
   .minecraft-hero-content p {
-    font-size: 1.42rem;
+    font-size: 1.12rem;
+    line-height: 1.45;
   }
 
   .server-address {
-    padding: 16px;
-    font-size: 0.88rem;
+    width: 100%;
+    padding: 14px 12px;
+    gap: 10px;
+    font-size: 0.68rem;
+    line-height: 1.35;
+  }
+
+  .server-address svg {
+    width: 26px;
+    min-width: 26px;
+    height: 26px;
   }
 
   .astroneer-orbit {
-    width: 540px;
+    width: min(420px, 118vw);
   }
 
   .astroneer-planet {
-    width: 230px;
+    width: 190px;
   }
 
   .minecraft-actions,
@@ -1237,6 +1290,32 @@ h2.pixel-heading {
     width: 100%;
   }
 
+  .copy-address-button,
+  .map-button,
+  .large-map-link,
+  .back-home-link,
+  .whitelist-submit {
+    min-height: 52px;
+    padding-right: 14px;
+    padding-left: 14px;
+    font-size: 0.64rem;
+  }
+
+  .whitelist-form,
+  .status-panel,
+  .map-copy {
+    padding: 18px;
+  }
+
+  .form-field input {
+    min-height: 52px;
+    padding: 0 12px;
+  }
+
+  .form-field textarea {
+    padding: 12px;
+  }
+
   .status-item,
   .status-item:nth-child(2),
   .status-item:nth-child(-n + 2) {
@@ -1250,16 +1329,48 @@ h2.pixel-heading {
 
   .pixel-heading h2,
   h2.pixel-heading {
-    font-size: 1.05rem;
+    font-size: 0.9rem;
+    line-height: 1.35;
   }
 
   .section-heading p,
   .map-copy p {
-    font-size: 1.24rem;
+    font-size: 1.02rem;
+    line-height: 1.45;
   }
 
   .large-map-link {
-    font-size: 0.72rem;
+    gap: 10px;
+    font-size: 0.62rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .home-hero h1 {
+    font-size: 2.35rem;
+  }
+
+  .minecraft-hero-content h1 {
+    font-size: 1.62rem;
+  }
+
+  .minecraft-hero-content p,
+  .section-heading p,
+  .map-copy p {
+    font-size: 0.95rem;
+  }
+
+  .minecraft-nav-links a {
+    font-size: 0.48rem;
+  }
+
+  .server-address,
+  .copy-address-button,
+  .map-button,
+  .large-map-link,
+  .back-home-link,
+  .whitelist-submit {
+    font-size: 0.56rem;
   }
 }
 

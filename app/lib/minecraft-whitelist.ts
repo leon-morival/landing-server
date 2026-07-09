@@ -1,11 +1,9 @@
 export type WhitelistRequest = {
   username: string;
-  discord: string;
   reason: string;
 };
 
 const usernamePattern = /^[A-Za-z0-9_]{3,16}$/;
-const maxDiscordLength = 64;
 const maxReasonLength = 800;
 
 export function parseWhitelistRequest(payload: unknown): WhitelistRequest {
@@ -15,22 +13,17 @@ export function parseWhitelistRequest(payload: unknown): WhitelistRequest {
 
   const input = payload as Partial<Record<keyof WhitelistRequest, unknown>>;
   const username = String(input.username ?? "").trim();
-  const discord = String(input.discord ?? "").trim();
   const reason = String(input.reason ?? "").trim();
 
   if (!usernamePattern.test(username)) {
     throw new Error("Pseudo Minecraft invalide.");
   }
 
-  if (discord.length < 2 || discord.length > maxDiscordLength) {
-    throw new Error("Identifiant Discord invalide.");
-  }
-
   if (reason.length < 10 || reason.length > maxReasonLength) {
     throw new Error("Message trop court ou trop long.");
   }
 
-  return { username, discord, reason };
+  return { username, reason };
 }
 
 async function readDiscordError(response: Response) {
@@ -59,7 +52,6 @@ export async function sendWhitelistRequestToDiscord(request: WhitelistRequest) {
           color: 0x33e879,
           fields: [
             { name: "Pseudo Minecraft", value: request.username, inline: true },
-            { name: "Discord", value: request.discord, inline: true },
             { name: "Message", value: request.reason.slice(0, maxReasonLength) },
           ],
           timestamp: new Date().toISOString(),
